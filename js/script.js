@@ -7,73 +7,48 @@ var output = document.getElementById('itemOutput');
 var randomNumber;
 var result;
 var player;
+var paper = 'paper';
+var stone = 'stone';
+var scissors = 'scissors';
 
 function computerNumber() {
   randomNumber = Math.floor(Math.random()*3 +1);
   if (randomNumber === 1) {
-    randomNumber = 'paper';
+    randomNumber = paper;
   }
   else if (randomNumber === 2) {
-    randomNumber = 'stone';
+    randomNumber = stone;
   }
   else if (randomNumber === 3) {
-    randomNumber = 'scissors';
+    randomNumber = scissors;
   }
 }
 function writeOutput() {
-  output.innerHTML = result + ': Ty wybrałeś ' + player + ', komputer wybrał ' + randomNumber;
+    output.innerHTML = result + ': Ty wybrałeś ' + player + ', komputer wybrał ' + randomNumber;
 }
 
-
-paperBtn.addEventListener('click', function() {
-  playerMove(paper); {
-    player = 'paper';
-    computerNumber();
-    if (randomNumber === 'paper') {
-      result = 'Remis';
-    }
-    else if (randomNumber === 'stone') {
-      result = 'Wygrana';
-    }
-    else if (randomNumber === 'scissors') {
-      result = 'Przegrana';
-    }
-    writeOutput()
-  }
-});
-stoneBtn.addEventListener('click', function() {
-  playerMove(stone); {
-    player = 'stone';
-    computerNumber();
-    if (randomNumber === 'paper') {
-      result = 'Przegrana';
-    }
-    else if (randomNumber === 'stone') {
-      result = 'Remis';
-    }
-    else if (randomNumber === 'scissors') {
-      result = 'Wygrana';
-    }
-    writeOutput()
-  }
-});
-scissorsBtn.addEventListener('click', function() {
-  playerMove(scissors); {
-    player = 'scissors';
-    computerNumber();
-    if (randomNumber === 'paper') {
-      result = 'Wygrana';
-    }
-    else if (randomNumber === 'stone') {
-      result = 'Przegrana';
-    }
-    else if (randomNumber === 'scissors') {
-      result = 'Remis';
-    }
-    writeOutput()
-  }
-});
 
 function playerMove(player) {
-	
+  computerNumber();
+
+  if (randomNumber === player) {
+      result = 'Remis';
+    }
+    else if ((randomNumber === stone && player === paper) || (randomNumber === paper && player === scissors) || (randomNumber === scissors && player === stone)){
+      result = 'Wygrana';
+    }
+    else  {
+      result = 'Przegrana';
+    }
+    writeOutput();
 }
+
+paperBtn.addEventListener('click', function() {
+  playerMove(paper); 
+});
+stoneBtn.addEventListener('click', function() {
+  playerMove(stone); 
+});
+scissorsBtn.addEventListener('click', function() {
+  playerMove(scissors); 
+});
