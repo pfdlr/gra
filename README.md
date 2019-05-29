@@ -1,1 +1,1 @@
-Gra Papier-Kamieñ-No¿yce
+Rock, Stone, Paper - GAME
