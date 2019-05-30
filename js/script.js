@@ -3,75 +3,86 @@
 var paperBtn = document.getElementById('paper');
 var stoneBtn = document.getElementById('stone');
 var scissorsBtn = document.getElementById('scissors');
-//var buttonsToggle = document.getElementsByClassName('btn')
+var gameButtons = document.getElementsByClassName("btn");
 var output = document.getElementById('itemOutput');
 var resultOutput = document.getElementById('resultOutput');
 var newGame = document.getElementById('newGameBtn');
 var rounds = document.getElementById('rounds');
-var randomNumber;
 var result;
 var player;
+var computer;
 var paper = 'paper';
 var stone = 'stone';
 var scissors = 'scissors';
 var userResult = 0;
 var computerResult = 0;
 var gameNumbers;
-//var msgError = '!!! Enter the correct value';
+var enableBtn = false;
+var disableBtn = true;
+var WON = 'WON';
+var LOST = 'LOST';
+var DRAW = 'DRAW';
+
 
 // funkcja generująca losowy nr 1-3 i przypisująca mu nazwę ruchu
 function computerNumber() {
-  randomNumber = Math.floor(Math.random()*3 +1);
+  var randomNumber = Math.floor(Math.random()*3 +1);
   if (randomNumber === 1) {
-    randomNumber = paper;
+    computer = paper;
   }
   else if (randomNumber === 2) {
-    randomNumber = stone;
+    computer = stone;
   }
   else if (randomNumber === 3) {
-    randomNumber = scissors;
+    computer = scissors;
   }
 }
+
 //funkcja zwracająca rezultat rundy
 function writeOutput(player) {
-    output.innerHTML = 'YOU ' + result + ': <br>You played ' + player + ', computer played ' + randomNumber;
+    output.innerHTML = 'YOU ' + result + ': <br>You played ' + player + ', computer played ' + computer;
   }
+
 //funkcja icząca  ilośc wygranych i przegranych
   function writeResultOutput() {
-  if (result === 'WON') {
-    userResult =++ userResult;
+  if (result === WON) {
+    userResult = userResult +1;
   }
-  else if(result === 'LOST') {
-    computerResult =++ computerResult;
+  else if(result === LOST) {
+    computerResult = computerResult + 1;
   }
   resultOutput.innerHTML = userResult + ' : ' + computerResult;
 }
+
 //funkcja sprawdza warunki wygranej i wywołuje pozostałe funkcje
 function playerMove(player) {
   computerNumber();
 
-  if (randomNumber === player) {
-      result = 'DRAW';
+  if (computer === player) {
+      result = DRAW;
     }
-    else if ((randomNumber === stone && player === paper) || (randomNumber === paper && player === scissors) || (randomNumber === scissors && player === stone)) {
-      result = 'WON';
+    else if ((computer === stone && player === paper) || (computer === paper && player === scissors) || (computer === scissors && player === stone)) {
+      result = WON;
     }
     else  {
-      result = 'LOST';
+      result = LOST;
     }
     writeOutput(player);
 	writeResultOutput();
     endGame(gameNumbers);
 }
+
 //resetowanie liczników - nowa gra
 function reset() {
 	userResult = 0;
 	computerResult = 0;
-	resultOutput.innerHTML = '0 : 0';
+    result = 0;
+	writeResultOutput()
 	output.innerHTML = "Choose your move - Click the Button above";
-	enableBtn();
+	disableEnableBtn(enableBtn);
     output.classList.remove('green', 'red');
 }
+
 //licznik ilosci gier
 function endGame(gameNumbers) {
 	
@@ -86,22 +97,18 @@ function endGame(gameNumbers) {
 			output.innerHTML = 'GAME OVER<br>COMPUTER WON THE ENTIRE GAME!!!';
             output.classList.add('red');
 		}
-		disableBtn();
+		disableEnableBtn(disableBtn);
 	}
 	
 }
 
 //zmiana stanu przycisków disable/enable
-function disableBtn() {
-	stoneBtn.disabled = true;
-	paperBtn.disabled = true;
-	scissorsBtn.disabled = true;
+function disableEnableBtn(state) {
+    stoneBtn.disabled = state;
+    paperBtn.disabled = state;
+	scissorsBtn.disabled = state;
 }
-function enableBtn() {
-	stoneBtn.disabled = false;
-	paperBtn.disabled = false;
-	scissorsBtn.disabled = false;
-}
+
 //obserwatory zdarzeń
 paperBtn.addEventListener('click', function() {
   playerMove(paper); 
@@ -112,6 +119,7 @@ stoneBtn.addEventListener('click', function() {
 scissorsBtn.addEventListener('click', function() {
   playerMove(scissors); 
 });
+
 //wprowadzenie ilości gier
 newGame.addEventListener('click', function() {
   gameNumbers = window.prompt('Set the Game Numbers to Win');
@@ -127,6 +135,7 @@ newGame.addEventListener('click', function() {
       
   }	
 });
+
 // modal
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
