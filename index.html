@@ -7,7 +7,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato|Quicksand|Raleway" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body onload="disableBtn()">
+<body onload="disableEnableBtn(true)">
 	<header>
 	<h1>Rock, Stone, Scissors</h1>
 	</header>
@@ -21,9 +21,9 @@
     
     
 	<div class="buttons" id="container">
-		<button class="btn" id="paper">Paper</button>
-		<button class="btn" id="stone">Stone</button>
-		<button class="btn" id="scissors">Scissors</button>
+		<button class="btn player-move" id="paper" data-move="paper">Paper</button>
+		<button class="btn player-move" id="stone" data-move="stone">Stone</button>
+		<button class="btn player-move" id="scissors" data-move="scissors">Scissors</button>
 	</div>
 	<div class="output" id="rounds">
 		</div>

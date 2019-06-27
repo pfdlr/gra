@@ -9,7 +9,7 @@ var resultOutput = document.getElementById("resultOutput");
 var newGame = document.getElementById("newGameBtn");
 var rounds = document.getElementById("rounds");
 var result;
-var player;
+var playerItem;
 var computer;
 var paper = "paper";
 var stone = "stone";
@@ -25,126 +25,130 @@ var DRAW = "DRAW";
 
 // funkcja generująca losowy nr 1-3 i przypisująca mu nazwę ruchu
 function computerNumber() {
-	var randomNumber = Math.floor(Math.random() * 3 + 1);
-	if (randomNumber === 1) {
-		computer = paper;
-	} else if (randomNumber === 2) {
-		computer = stone;
-	} else if (randomNumber === 3) {
-		computer = scissors;
-	}
+  var randomNumber = Math.floor(Math.random() * 3 + 1);
+  if (randomNumber === 1) {
+    computer = paper;
+  } else if (randomNumber === 2) {
+    computer = stone;
+  } else if (randomNumber === 3) {
+    computer = scissors;
+  }
 }
 
 //funkcja zwracająca rezultat rundy
-function writeOutput(player) {
-	output.innerHTML =
-		"YOU " +
-		result +
-		": <br>You played " +
-		player +
-		", computer played " +
-		computer;
+function writeOutput(playerItem) {
+  output.innerHTML =
+    "YOU " + result + ": <br>You played<strong> " + playerItem + ",</strong> computer played <strong>" + computer +'</strong>';
 }
 
 //funkcja icząca  ilośc wygranych i przegranych
 function writeResultOutput() {
-	if (result === WON) {
-		userResult = userResult + 1;
-	} else if (result === LOST) {
-		computerResult = computerResult + 1;
-	}
-	resultOutput.innerHTML = userResult + " : " + computerResult;
+  if (result === WON) {
+    userResult = userResult + 1;
+  } else if (result === LOST) {
+    computerResult = computerResult + 1;
+  }
+  resultOutput.innerHTML = userResult + " : " + computerResult;
 }
 
 //funkcja sprawdza warunki wygranej i wywołuje pozostałe funkcje
-function playerMove(player) {
-	computerNumber();
+function playerMove(playerItem) {
+  computerNumber();
 
-	if (computer === player) {
-		result = DRAW;
-	} else if (
-		(computer === stone && player === paper) ||
-		(computer === paper && player === scissors) ||
-		(computer === scissors && player === stone)
-	) {
-		result = WON;
-	} else {
-		result = LOST;
-	}
-	writeOutput(player);
-	writeResultOutput();
-	endGame(gameNumbers);
+  var clickedItem = event.target;
+  playerItem = clickedItem.getAttribute('data-move');
+  if (computer === playerItem) {
+    result = DRAW;
+  } else if (
+    (computer === stone && playerItem === paper) ||
+    (computer === paper && playerItem === scissors) ||
+    (computer === scissors && playerItem === stone)
+  ) {
+    result = WON;
+  } else {
+    result = LOST;
+  }
+  writeOutput(playerItem);
+  writeResultOutput();
+  endGame(gameNumbers);
 }
 
 //resetowanie liczników - nowa gra
 function reset() {
-	userResult = 0;
-	computerResult = 0;
-	result = 0;
-	writeResultOutput();
-	output.innerHTML = "Choose your move - Click the Button above";
-	disableEnableBtn(enableBtn);
-	output.classList.remove("green", "red");
+  userResult = 0;
+  computerResult = 0;
+  result = 0;
+  writeResultOutput();
+  output.innerHTML = "Choose your move - Click the Button above";
+  disableEnableBtn(enableBtn);
+  output.classList.remove("green", "red");
 }
 
 //licznik ilosci gier
 function endGame(gameNumbers) {
-	if (gameNumbers == userResult || gameNumbers == computerResult) {
-		output.innerHTML = "GAME OVER";
+  if (gameNumbers == userResult || gameNumbers == computerResult) {
+    output.innerHTML = "GAME OVER";
 
-		if (userResult > computerResult) {
-			output.innerHTML = "GAME OVER<br>YOU WON THE ENTIRE GAME!!!";
-			output.classList.add("green");
-		} else if (userResult < computerResult) {
-			output.innerHTML = "GAME OVER<br>COMPUTER WON THE ENTIRE GAME!!!";
-			output.classList.add("red");
-		}
-		disableEnableBtn(disableBtn);
-	}
+    if (userResult > computerResult) {
+      output.innerHTML = "GAME OVER<br>YOU WON THE ENTIRE GAME!!!";
+      output.classList.add("green");
+    } else if (userResult < computerResult) {
+      output.innerHTML = "GAME OVER<br>COMPUTER WON THE ENTIRE GAME!!!";
+      output.classList.add("red");
+    }
+    disableEnableBtn(disableBtn);
+  }
 }
 
 //zmiana stanu przycisków disable/enable
 function disableEnableBtn(state) {
-	stoneBtn.disabled = state;
-	paperBtn.disabled = state;
-	scissorsBtn.disabled = state;
+  stoneBtn.disabled = state;
+  paperBtn.disabled = state;
+  scissorsBtn.disabled = state;
 }
 
 //obserwatory zdarzeń
+/*
 paperBtn.addEventListener("click", function() {
-	playerMove(paper);
+  playerMove(paper);
 });
 stoneBtn.addEventListener("click", function() {
-	playerMove(stone);
+  playerMove(stone);
 });
 scissorsBtn.addEventListener("click", function() {
-	playerMove(scissors);
+  playerMove(scissors);
 });
+*/
+//obserwator zdarzeń z petlą
+var playBtns = document.querySelectorAll('.player-move');
+  for (var i = 0; i < playBtns.length; i++ ) {
+    playBtns[i].addEventListener('click', playerMove);
+  }
 
 //wprowadzenie ilości gier
 newGame.addEventListener("click", function() {
-	gameNumbers = window.prompt("Set the Game Numbers to Win");
-	gameNumbers = parseInt(gameNumbers);
-	if (gameNumbers !== null && !isNaN(gameNumbers) && gameNumbers !== "") {
-		reset();
-		rounds.innerHTML = "Rounds in the game: " + gameNumbers;
-	} else {
-		//alert(msgError);
-		modal.style.display = "block";
-		modalClose();
-	}
+  gameNumbers = window.prompt("Set the Game Numbers to Win");
+  gameNumbers = parseInt(gameNumbers);
+  if (gameNumbers !== null && !isNaN(gameNumbers) && gameNumbers !== "") {
+    reset();
+    rounds.innerHTML = "Rounds in the game: " + gameNumbers;
+  } else {
+    //alert(msgError);
+    modal.style.display = "block";
+    modalClose();
+  }
 });
 
 // modal
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
 function modalClose() {
-	span.onclick = function() {
-		modal.style.display = "none";
-	};
-	window.onclick = function(event) {
-		if (event.target == modal) {
-			modal.style.display = "none";
-		}
-	};
+  span.onclick = function() {
+    modal.style.display = "none";
+  };
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
 }
