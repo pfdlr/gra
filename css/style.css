@@ -1,5 +1,66 @@
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.overlay.show {
+  display: block;
+}
+
+.modal {
+  display: none;
+  background: #fff;
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.modal.show {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+}
+
+.modal .redHeader {
+  background-color: #fd5454;
+}
+
+.modal .greenHeader {
+  background-color: #54fd6b;
+}
+
+.modal .close {
+  position: absolute;
+  right: 5px;
+  top: -5px;
+  color: #000;
+  text-decoration: none;
+}
+
+.modal header {
+  font-size: 20px;
+  line-height: 30px;
+  min-height: 30px;
+  font-weight: bold;
+  padding: 0 30px;
+}
+
+.modal .content,
+.modal .modal-scores-content {
+  min-height: 30px;
+  padding: 5px 30px;
+}
+
 * {
-  font-family: 'Lato';
+  font-family: "Lato";
   text-align: center;
 }
 
@@ -15,7 +76,8 @@
   margin: 30px 30px;
 }
 
-.btn, .btnNew {
+.btn,
+.btnNew {
   border: 0;
   background: #b1e09c;
   width: 100px;
@@ -82,5 +144,20 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Table */
+table {
+  border: 1px solid #1c6ea4;
+  background-color: #eeeeee;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+table td,
+table th {
+  border: 1px solid #aaaaaa;
+  padding: 3px 2px;
 }
 /*# sourceMappingURL=style.css.map */

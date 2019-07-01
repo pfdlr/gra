@@ -1,41 +1,64 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
-	<title>Gra</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css?family=Lato|Quicksand|Raleway" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>Gra</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Lato|Quicksand|Raleway" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
+
 <body onload="disableEnableBtn(true)">
-	<header>
-	<h1>Rock, Stone, Scissors</h1>
-	</header>
-    <!-- modal -->
-    <div id="modal" class="modal__overlay">
-        <div id="modal__close" class="modal-content">
-            <span class="close">&times;</span>
-            <p>!!! Enter the correct value</p>
-		</div>
-		<div id="modal__score" class="modal-content">
-            <span class="close">&times;</span>
-            <p>!!! Enter the correct value</p>
-        </div>
+  <header>
+    <h1>Rock, Stone, Scissors</h1>
+  </header>
+  <div class="overlay" id="modal-overlay">
+    <div class="modal" id="modal-error">
+      <a href="#" class="close">x</a>
+      <header class="error  redHeader">ERROR</header>
+      <div class="content">
+        <p>Enter the correct value</p>
+      </div>
     </div>
-    
-    
-	<div class="buttons" id="container">
-		<button class="btn player-move" id="paper" data-move="paper">Paper</button>
-		<button class="btn player-move" id="stone" data-move="stone">Stone</button>
-		<button class="btn player-move" id="scissors" data-move="scissors">Scissors</button>
-	</div>
-	<div class="output" id="rounds">
-		</div>
-		<div class="output" id="itemOutput">SCORE
-		</div>
-		<div class="outputResult" id="resultOutput">0 : 0 
-		</div>
-		<button class="btnNew" id="newGameBtn">New game</button>
-	<script type="text/javascript" src="js/script.js"></script>
+    <div class="modal" id="modal-scores">
+      <a href="#" class="close">x</a>
+      <header class="modal-scores-header"></header>
+      <div class="modal-scores-content">
+        <div class="modal-scores-content-round"></div>
+        <div class="modal-scores-content-result"></div>
+        <div class="modal-scores-content-score"></div>
+        <div class="modal-scores-content-table">xxx</div>
+      </div>
+    </div>
+    <!--
+    <div class="modal" id="modal-input-form">
+      <a href="#" class="close">x</a>
+      <header>Set your Name & Game Numbers</header>
+      <div class="content">
+        <form>
+          <label for="player-name">Player Name</label><br />
+          <input name="player-name" id="player-name" type="text" value="" /> <br />
+          <label for="game-numbers">Game Numbers</label><br />
+          <input name="game-numbers" id="game-numbers" type="text" value="" /> <br />
+          <button type="submit">Start Game</button>
+        </form>
+      </div>
+    </div>
+    -->
+  </div>
+
+  <div class="buttons" id="container">
+    <button class="btn player-move" id="paper" data-move="paper">Paper</button>
+    <button class="btn player-move" id="stone" data-move="stone">Stone</button>
+    <button class="btn player-move" id="scissors" data-move="scissors">Scissors</button>
+  </div>
+  <div class="output" id="rounds"></div>
+  <div class="output" id="itemOutput">SCORE</div>
+  <div class="outputResult" id="resultOutput">0 : 0</div>
+  <button class="btnNew" id="newGameBtn">New game</button>
+  <script type="text/javascript" src="js/script.js"></script>
 </body>
+
 </html>
