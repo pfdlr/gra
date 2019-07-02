@@ -20,6 +20,7 @@
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
+  width: 450px;
 
   &.show {
     display: flex;
@@ -37,6 +38,14 @@
     top: -5px;
     color: #000;
     text-decoration: none;
+    font-size: 28px;
+    font-weight: bold;
+    &:hover,
+    &:focus {
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
   }
 
   header {
@@ -51,5 +60,26 @@
   .modal-scores-content {
     min-height: 30px;
     padding: 5px 30px;
+    .modal-scores-content-round,
+    .modal-scores-content-result,
+    .modal-scores-content-score {
+      font-size: 20px;
+      margin: 10px auto;
+    }
+    /* Table in modal */
+    table {
+      border: 1px solid #1c6ea4;
+      background-color: #eeeeee;
+      width: 100%;
+      text-align: left;
+      border-collapse: collapse;
+      margin: 20px 0;
+      td,
+      th {
+        border: 1px solid #aaaaaa;
+        padding: 3px 2px;
+        text-transform: uppercase;
+      }
+    }
   }
 }
