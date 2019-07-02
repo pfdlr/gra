@@ -34,16 +34,6 @@ var params = {
   progress: [],
 };
 
-/*
-var roundStats = {
-  roundsNumber: params.roundCounter,
-  playerChoice: params.playerItem,
-  computerChoice: params.computerItem,
-  roundScore: params.userScore + " : " + params.computerScore,
-  roundResult: params.result,
-}
-*/
-
 // funkcja generująca losowy nr 1-3 i przypisująca mu nazwę ruchu
 function computerNumber() {
   var randomNumber = Math.floor(Math.random() * 3 + 1);
@@ -73,7 +63,7 @@ function writeResultOutput() {
   document.querySelector(".modal-scores-content-score").innerHTML = params.userScore + " : " + params.computerScore;
 }
 
-//funkcja sprawdza warunki wygranej i wywołuje pozostałe funkcje
+//funkcja sprawdza warunki wygranej, wstawia wyniki do tablicy 'params.progress' i wywołuje pozostałe funkcje
 function playerMove() {
   computerNumber();
 
@@ -87,6 +77,7 @@ function playerMove() {
   } else {
     params.result = LOST;
   }
+
   writeOutput();
   writeResultOutput();
   
@@ -107,7 +98,7 @@ function playerMove() {
 function reset() {
   params.userScore = 0;
   params.computerScore = 0;
-  params.result = 0;
+  params.result = "";
   params.roundCounter = 0;
   params.progress = [];
   writeResultOutput();
@@ -146,18 +137,6 @@ function disableEnableBtn(state) {
   scissorsBtn.disabled = state;
 }
 
-//obserwatory zdarzeń
-/*
-paperBtn.addEventListener("click", function() {
-  playerMove(paper);
-});
-stoneBtn.addEventListener("click", function() {
-  playerMove(stone);
-});
-scissorsBtn.addEventListener("click", function() {
-  playerMove(scissors);
-});
-*/
 //obserwator zdarzeń z petlą
 var playBtns = document.querySelectorAll(".player-move");
 for (var i = 0; i < playBtns.length; i++) {
@@ -166,9 +145,9 @@ for (var i = 0; i < playBtns.length; i++) {
 
 //wprowadzenie ilości gier
 newGame.addEventListener("click", function () {
-  params.gameRounds = window.prompt("Set the Game Numbers to Win");
-  params.gameRounds = parseInt(params.gameRounds);
-  if (params.gameRounds !== null && !isNaN(params.gameRounds) && params.gameRounds !== "") {
+  var promptNumber = window.prompt("Set the Game Numbers to Win");
+  params.gameRounds = parseInt(promptNumber);
+  if (params.gameRounds !== null && !isNaN(params.gameRounds)) {
     reset();
     rounds.innerHTML = "Rounds in the game: " + params.gameRounds;
   } else {
@@ -176,8 +155,7 @@ newGame.addEventListener("click", function () {
   }
 });
 
-//__________________________ modal _________________________
-
+/*__________________________ modal _________________________ */
 var showModal = function (modalId) {
   event.preventDefault();
   document.querySelector("#modal-overlay").classList.add("show");
@@ -193,11 +171,13 @@ var hideModal = function (event) {
     modals[i].classList.remove("show");
   }
 };
+
 // obserwator zdarzeń na przycisku X
 var closeButtons = document.querySelectorAll(".modal .close");
 for (var i = 0; i < closeButtons.length; i++) {
   closeButtons[i].addEventListener("click", hideModal);
 }
+
 //obserwator zdarzeń na overlayu
 document.querySelector("#modal-overlay").addEventListener("click", hideModal);
 
@@ -208,12 +188,12 @@ for (var i = 0; i < modals.length; i++) {
     event.stopPropagation();
   });
 }
-/* Table */
+
+/* ____________________________ Table ________________________________ */
 var generateTable = function () {
   var html = "<table><tr><th>Round number</th><th>Player move</th><th>Computer move</th><th>Resut</th><th>Result after round</th></tr>";
   for (var key in params.progress) {
     html = html + "<tr><td>" + params.progress[key].roundsNumber + "</td><td>" + params.progress[key].playerChoice + "</td><td>" + params.progress[key].computerChoice + "</td><td>" + params.progress[key].roundResult + "</td><td>" + params.progress[key].roundScore + "</td></tr>";
     document.querySelector(".modal-scores-content-table").innerHTML = html + "</table>";
   };
-
 };
