@@ -64,11 +64,10 @@ function writeResultOutput() {
 }
 
 //funkcja sprawdza warunki wygranej, wstawia wyniki do tablicy 'params.progress' i wywołuje pozostałe funkcje
-function playerMove() {
+function playerMove(move) {
   computerNumber();
 
-  var clickedItem = event.target;
-  params.playerItem = clickedItem.getAttribute("data-move");
+  params.playerItem = move;
   params.roundCounter = params.roundCounter + 1;
   if (params.computerItem === params.playerItem) {
     params.result = DRAW;
@@ -140,7 +139,10 @@ function disableEnableBtn(state) {
 //obserwator zdarzeń z petlą
 var playBtns = document.querySelectorAll(".player-move");
 for (var i = 0; i < playBtns.length; i++) {
-  playBtns[i].addEventListener("click", playerMove);
+  playBtns[i].addEventListener("click", function() {
+    var move = event.target.getAttribute('data-move');
+  playerMove(move);
+  });
 }
 
 //wprowadzenie ilości gier
