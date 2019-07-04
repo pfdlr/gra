@@ -11,8 +11,7 @@ var newGame = document.getElementById("newGameBtn");
 var rounds = document.getElementById("rounds");
 var modalRounds = document.querySelector(".modal-scores-content-round");
 var modalHeader = document.querySelector(".modal-scores-header");
-var modalForm = document.querySelector(".modal-input-form")
-
+var modalForm = document.querySelector(".modal-input-form");
 
 var paper = "paper";
 var stone = "stone";
@@ -31,7 +30,7 @@ var params = {
   computerItem: "",
   result: "",
   roundCounter: 0,
-  progress: [],
+  progress: []
 };
 
 // funkcja generująca losowy nr 1-3 i przypisująca mu nazwę ruchu
@@ -79,17 +78,16 @@ function playerMove(move) {
 
   writeOutput();
   writeResultOutput();
-  
+
   /*OBIEKT DO TABLICY  */
-  params.progress.push(
-    {
-      roundsNumber: params.roundCounter,
-      playerChoice: params.playerItem,
-      computerChoice: params.computerItem,
-      roundScore: params.userScore + " : " + params.computerScore,
-      roundResult: params.result,
-    });
-    
+  params.progress.push({
+    roundsNumber: params.roundCounter,
+    playerChoice: params.playerItem,
+    computerChoice: params.computerItem,
+    roundScore: params.userScore + " : " + params.computerScore,
+    roundResult: params.result
+  });
+
   endGame();
 }
 
@@ -139,14 +137,14 @@ function disableEnableBtn(state) {
 //obserwator zdarzeń z petlą
 var playBtns = document.querySelectorAll(".player-move");
 for (var i = 0; i < playBtns.length; i++) {
-  playBtns[i].addEventListener("click", function() {
-    var move = event.target.getAttribute('data-move');
-  playerMove(move);
+  playBtns[i].addEventListener("click", function(event) {
+    var move = event.target.getAttribute("data-move");
+    playerMove(move);
   });
 }
 
 //wprowadzenie ilości gier
-newGame.addEventListener("click", function () {
+newGame.addEventListener("click", function() {
   var promptNumber = window.prompt("Set the Game Numbers to Win");
   params.gameRounds = parseInt(promptNumber);
   if (params.gameRounds !== null && !isNaN(params.gameRounds)) {
@@ -158,14 +156,13 @@ newGame.addEventListener("click", function () {
 });
 
 /*__________________________ modal _________________________ */
-var showModal = function (modalId) {
-  event.preventDefault();
+var showModal = function(modalId) {
   document.querySelector("#modal-overlay").classList.add("show");
   document.querySelector(modalId).classList.add("show");
 };
 
 // funkcja zamykająca modal
-var hideModal = function (event) {
+var hideModal = function(event) {
   event.preventDefault();
   document.querySelector("#modal-overlay").classList.remove("show");
   var modals = document.querySelectorAll(".modal");
@@ -186,16 +183,28 @@ document.querySelector("#modal-overlay").addEventListener("click", hideModal);
 //zatrzymanie propagacji
 var modals = document.querySelectorAll(".modal");
 for (var i = 0; i < modals.length; i++) {
-  modals[i].addEventListener("click", function (event) {
+  modals[i].addEventListener("click", function(event) {
     event.stopPropagation();
   });
 }
 
 /* ____________________________ Table ________________________________ */
-var generateTable = function () {
+var generateTable = function() {
   var html = "<table><tr><th>Round number</th><th>Player move</th><th>Computer move</th><th>Resut</th><th>Result after round</th></tr>";
   for (var key in params.progress) {
-    html = html + "<tr><td>" + params.progress[key].roundsNumber + "</td><td>" + params.progress[key].playerChoice + "</td><td>" + params.progress[key].computerChoice + "</td><td>" + params.progress[key].roundResult + "</td><td>" + params.progress[key].roundScore + "</td></tr>";
+    html =
+      html +
+      "<tr><td>" +
+      params.progress[key].roundsNumber +
+      "</td><td>" +
+      params.progress[key].playerChoice +
+      "</td><td>" +
+      params.progress[key].computerChoice +
+      "</td><td>" +
+      params.progress[key].roundResult +
+      "</td><td>" +
+      params.progress[key].roundScore +
+      "</td></tr>";
     document.querySelector(".modal-scores-content-table").innerHTML = html + "</table>";
-  };
+  }
 };
