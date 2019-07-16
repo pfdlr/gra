@@ -11,8 +11,11 @@ var newGame = document.getElementById("newGameBtn");
 var rounds = document.getElementById("rounds");
 var modalRounds = document.querySelector(".modal-scores-content-round");
 var modalHeader = document.querySelector(".modal-scores-header");
-var modalForm = document.querySelector(".modal-input-form");
-
+/*
+var modalForm = document.querySelector("#modal-input-form");
+var playerName = document.querySelector("#playerName");
+var gameNumbers = document.querySelector("#gameNumbers");
+*/
 var paper = "paper";
 var stone = "stone";
 var scissors = "scissors";
@@ -21,6 +24,7 @@ var disableBtn = true;
 var WON = "WON";
 var LOST = "LOST";
 var DRAW = "DRAW";
+var playerName = '';
 
 var params = {
   gameRounds: 0,
@@ -47,7 +51,7 @@ function computerNumber() {
 
 //funkcja zwracająca rezultat rundy
 function writeOutput(playerItem) {
-  output.innerHTML = "YOU " + params.result + ": <br>You played<strong> " + params.playerItem + ",</strong> computer played <strong>" + params.computerItem + "</strong>";
+  output.innerHTML = "YOU " + params.result + ": <br>" + playerName + " played<strong> " + params.playerItem + ",</strong> computer played <strong>" + params.computerItem + "</strong>";
 }
 
 //funkcja icząca  ilośc wygranych i przegranych
@@ -102,6 +106,7 @@ function reset() {
   output.innerHTML = "Choose your move - Click the Button above";
   disableEnableBtn(enableBtn);
   output.classList.remove("green", "red");
+  
 }
 
 //licznik ilosci gier
@@ -143,16 +148,27 @@ for (var i = 0; i < playBtns.length; i++) {
   });
 }
 
-//wprowadzenie ilości gier
+//wprowadzenie ilości gier do okna modala
 newGame.addEventListener("click", function() {
-  var promptNumber = window.prompt("Set the Game Numbers to Win");
-  params.gameRounds = parseInt(promptNumber);
-  if (params.gameRounds !== null && !isNaN(params.gameRounds)) {
+  showModal("#modal-input-form");
+var form = document.querySelector('#startForm');
+var number = document.getElementById('gameNumbers');
+var player = document.getElementById('playerName');
+form.reset();
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  document.querySelector("#modal-overlay").classList.remove("show");
+  document.querySelector("#modal-input-form").classList.remove("show");
+  params.gameRounds = number.value;
+  var playerNameString = player.value;
+  playerName = playerNameString.charAt(0).toUpperCase() + playerNameString.slice(1);
+  if (params.gameRounds !== null && !isNaN(params.gameRounds) && params.gameRounds !== 0) {
     reset();
     rounds.innerHTML = "Rounds in the game: " + params.gameRounds;
   } else {
     showModal("#modal-error");
   }
+});
 });
 
 /*__________________________ modal _________________________ */
@@ -188,9 +204,10 @@ for (var i = 0; i < modals.length; i++) {
   });
 }
 
+
 /* ____________________________ Table ________________________________ */
 var generateTable = function() {
-  var html = "<table><tr><th>Round number</th><th>Player move</th><th>Computer move</th><th>Resut</th><th>Result after round</th></tr>";
+  var html = "<table><tr><th>Round number</th><th>" + playerName + " move</th><th>Computer move</th><th>Resut</th><th>Result after round</th></tr>";
   for (var key in params.progress) {
     html =
       html +
