@@ -27,6 +27,13 @@
   cursor: pointer;
   text-transform: uppercase;
   transition: all 0.3s;
+  font-family: "Font Awesome 5 Free";
+  font-size: 60px;
+  color: #033f55;
+  &:hover {
+    color: #11546d;
+    background: #c7e7b7;
+  }  
 }
 
 .outputResult {
@@ -42,4 +49,19 @@
 }
 .green {
   color: green;
+}
+.fa, .far, .fas {
+  font-family: "Font Awesome 5 Free";
+  font-size: 60px;
+  color: black;  
+}
+input[type="number"], input[type="text"] {
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 150px;
+  background-color: #fafafa;
+  border: none;
+  color: #000000;
+  outline: none;
 }

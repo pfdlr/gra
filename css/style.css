@@ -98,6 +98,24 @@
   text-transform: uppercase;
 }
 
+#modal-input-form header {
+  background-color: darkseagreen;
+}
+
+#modal-input-form button {
+  background-color: darkseagreen;
+  width: 100px;
+  height: 30px;
+  border: 1px solid black;
+  margin: 5px 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#modal-input-form button:hover {
+  background-color: #b2e4b2;
+}
+
 * {
   font-family: "Lato";
   text-align: center;
@@ -128,6 +146,15 @@
   cursor: pointer;
   text-transform: uppercase;
   transition: all 0.3s;
+  font-family: "Font Awesome 5 Free";
+  font-size: 60px;
+  color: #033f55;
+}
+
+.btn:hover,
+.btnNew:hover {
+  color: #11546d;
+  background: #c7e7b7;
 }
 
 .outputResult {
@@ -145,5 +172,22 @@
 
 .green {
   color: green;
+}
+
+.fa, .far, .fas {
+  font-family: "Font Awesome 5 Free";
+  font-size: 60px;
+  color: black;
+}
+
+input[type="number"], input[type="text"] {
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 150px;
+  background-color: #fafafa;
+  border: none;
+  color: #000000;
+  outline: none;
 }
 /*# sourceMappingURL=style.css.map */

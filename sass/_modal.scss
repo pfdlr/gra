@@ -82,4 +82,22 @@
       }
     }
   }
+  
 }
+#modal-input-form {
+  header {
+    background-color: darkseagreen;
+  }
+  button {
+      background-color: darkseagreen;
+      width: 100px;
+      height: 30px;
+      border: 1px solid black;
+      margin: 5px 0;
+      font-size: 16px;
+      font-weight: bold;
+      &:hover {
+        background-color: rgb(178, 228, 178);
+      }
+  }
+} 
