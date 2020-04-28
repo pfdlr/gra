@@ -1,2 +1,2 @@
-Rock, Stone, Paper - GAME
-https://pfdlr.github.io/gra/
+## Rock, Stone, Paper - GAME
+#### Demo: https://pfdlr.github.io/gra/
